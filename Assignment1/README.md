@@ -190,17 +190,11 @@ assignment1/
 
 The complete ChatGPT interaction used to perform the data science analysis should be exported and added to this repository.
 
-**Transcript file placeholder:** `transcript/CHATGPT_TRANSCRIPT_PLACEHOLDER.md`
-
-Recommended final file name after export:
-
 ```text
 assignment1/transcript/chat_transcript.pdf
 ```
 
 ## YouTube Walkthrough
-
-Add the YouTube walkthrough link here after uploading:
 
 ```text
 [Add YouTube video link here]
