@@ -180,10 +180,10 @@ assignment1/
 │   ├── model_metrics.csv
 │   ├── cross_validation_results.csv
 │   └── feature_importance_summary.csv
-├── README.md
 ├── Chat_transcript.pdf
+├── README.md
 └── links/
-    └── medium_youtube_links.md
+    └── youtube_links.md
 ```
 
 ## ChatGPT Transcript
