@@ -2,20 +2,18 @@
 
 ## Project Overview
 
-This project explores the Kaggle **House Prices: Advanced Regression Techniques** dataset using ChatGPT as an AI-assisted data science tool.
+This project analyzes the Kaggle **House Prices: Advanced Regression Techniques** dataset using ChatGPT as an AI-assisted data science tool.
 
-The goal is to understand the housing dataset, perform exploratory data analysis, preprocess the data, train multiple regression models, compare their performance, and identify the most important factors affecting house prices.
+The goal of the project was to understand the housing dataset, perform exploratory data analysis, preprocess the data, train multiple regression models, compare their performance, and identify the most important factors affecting house prices.
 
-The full data science workflow was completed interactively with ChatGPT, including explanations, code generation, result interpretation, and model comparison.
-
----
+The workflow was completed interactively with ChatGPT, including code generation, explanations, result interpretation, and model comparison.
 
 ## Dataset
 
 **Dataset:** Kaggle House Prices: Advanced Regression Techniques  
 **Target Variable:** `SalePrice`
 
-The training dataset contains:
+The training dataset used in the analysis contains:
 
 - 1,460 rows
 - 81 columns
@@ -24,15 +22,17 @@ The training dataset contains:
 
 The objective is to predict the final sale price of each house.
 
----
+The Kaggle `train.csv` file is not included in this package. To rerun the notebook or Python script, download it from Kaggle and place it at:
+
+```text
+assignment1/data/train.csv
+```
 
 ## Data Science Workflow
 
-The project followed an end-to-end data science workflow:
-
 1. Dataset understanding
 2. Data quality inspection
-3. Exploratory Data Analysis
+3. Exploratory data analysis
 4. Missing value analysis
 5. Feature preprocessing
 6. Train-validation split
@@ -43,59 +43,25 @@ The project followed an end-to-end data science workflow:
 11. Feature importance analysis
 12. Final interpretation
 
----
-
 ## Exploratory Data Analysis
 
 ### Sale Price Distribution
 
-The average house sale price was approximately:
+The average house sale price was approximately **$180,921**.
 
-**$180,921**
+The median house sale price was approximately **$163,000**.
 
-The median house sale price was approximately:
+The target variable was positively skewed, with a skewness of approximately **1.88**. This means that most houses were concentrated in the lower and middle price ranges, while a smaller number of expensive houses created a long right tail.
 
-**$163,000**
+### Important Relationships
 
-The target variable was positively skewed, with a skewness of approximately:
+Several features showed strong relationships with house prices:
 
-**1.88**
+- `OverallQual` and `SalePrice`: correlation approximately **0.791**
+- `GrLivArea` and `SalePrice`: correlation approximately **0.709**
+- Median sale prices across neighborhoods ranged approximately from **$88,000 to $315,000**
 
-This means that most houses were concentrated in the lower and middle price ranges, while a smaller number of expensive houses created a long right tail.
-
----
-
-## Important Relationships
-
-Several features showed strong relationships with house prices.
-
-### Overall Quality
-
-`OverallQual` had one of the strongest correlations with `SalePrice`.
-
-**Correlation: approximately 0.791**
-
-This suggests that the overall construction and finish quality of a house is one of the strongest predictors of its sale price.
-
-### Above-Ground Living Area
-
-`GrLivArea` also showed a strong positive relationship with sale price.
-
-**Correlation: approximately 0.709**
-
-Larger living spaces generally resulted in higher house prices.
-
-### Neighborhood
-
-House prices also varied significantly depending on neighborhood.
-
-Median sale prices across neighborhoods ranged approximately from:
-
-**$88,000 to $315,000**
-
-This indicates that location is also an important factor in determining house value.
-
----
+These results suggest that overall quality, living area, and location were major drivers of house prices.
 
 ## Missing Value Analysis
 
@@ -107,57 +73,40 @@ Several variables contained large numbers of missing values, including:
 - `Fence`
 - `FireplaceQu`
 
-However, some missing values represent the absence of a feature rather than bad data.
+Some missing values represent the absence of a feature rather than bad data. For example, a missing `PoolQC` value may simply mean that the house does not have a pool.
 
-For example, a missing `PoolQC` value may simply mean that the house does not have a pool.
-
-For this reason, missing categorical values were generally represented using a separate `"Missing"` category rather than simply deleting those rows or columns.
-
----
+For this reason, missing categorical values were generally represented using a separate `"Missing"` category instead of deleting those rows or columns.
 
 ## Data Preprocessing
 
-The following preprocessing steps were applied:
+The preprocessing steps included:
 
 - Removed the `Id` column
 - Used median imputation for missing numerical values
 - Replaced missing categorical values with `"Missing"`
 - Applied one-hot encoding to categorical variables
-- Created approximately 301 final model features
-- Split the dataset into training and validation sets
-- Used an 80/20 train-validation split
+- Created approximately **301 final model features**
+- Used an **80/20 train-validation split**
 - Used `random_state=42` for reproducibility
-
----
 
 ## Models Evaluated
 
-Several regression approaches were compared.
-
-| Model | RMSE | MAE | R² | RMSLE |
+| Model | RMSE | MAE | R2 | RMSLE |
 |---|---:|---:|---:|---:|
 | Median Baseline | $88,667 | $59,568 | -0.025 | 0.432 |
 | Log Linear Regression | $22,902 | $15,076 | 0.932 | 0.132 |
 | Random Forest | $29,007 | $17,469 | 0.890 | ~0.148 |
 | Gradient Boosting | $28,787 | $16,763 | 0.892 | **0.130** |
 
----
+The Log Linear Regression model achieved the best RMSE, MAE, and R2 scores on the validation set.
 
-## Model Interpretation
-
-The Log Linear Regression model achieved the best RMSE, MAE, and R² scores on the validation set.
-
-However, the **Gradient Boosting model achieved the best RMSLE score of approximately 0.130**.
-
-RMSLE is particularly useful for this type of housing-price problem because it measures relative prediction error and reduces the effect of very expensive houses.
+However, the **Gradient Boosting model achieved the best RMSLE score of approximately 0.130**. RMSLE is especially useful for this type of housing-price problem because it measures relative prediction error and reduces the effect of very expensive houses.
 
 Because the Kaggle House Prices competition commonly uses RMSLE-style evaluation, Gradient Boosting was selected as the final model.
 
----
-
 ## Cross-Validation Results
 
-To evaluate whether the model results were stable across different subsets of the training data, 3-fold cross-validation was performed.
+Three-fold cross-validation was used to evaluate whether model performance was stable across different subsets of the training data.
 
 | Model | Mean RMSLE | Standard Deviation |
 |---|---:|---:|
@@ -165,20 +114,16 @@ To evaluate whether the model results were stable across different subsets of th
 | Random Forest | 0.148 | 0.019 |
 | Log Linear Regression | 0.159 | 0.028 |
 
-Gradient Boosting achieved the best average cross-validation RMSLE.
-
-This provided additional evidence that the model generalized well beyond a single train-validation split.
-
----
+Gradient Boosting achieved the best average cross-validation RMSLE, supporting the final model selection.
 
 ## Feature Importance
 
 The Gradient Boosting model showed that a small number of features contributed heavily to the predictions.
 
-Two of the most important features were:
+The two most important features were:
 
-- `OverallQual` — approximately **46%**
-- `GrLivArea` — approximately **17%**
+- `OverallQual`: approximately **46%**
+- `GrLivArea`: approximately **17%**
 
 Other influential factors included:
 
@@ -189,15 +134,9 @@ Other influential factors included:
 - Neighborhood
 - Additional size and quality-related features
 
-The results suggest that house prices are strongly influenced by a combination of:
-
-**quality + usable living space + location + property age + supporting amenities**
-
----
+Overall, the results suggest that house prices are strongly influenced by **quality, usable living space, location, property age, and supporting amenities**.
 
 ## Key Findings
-
-The most important findings from this project were:
 
 - Overall house quality was the strongest predictor of sale price.
 - Larger above-ground living areas were generally associated with higher prices.
@@ -207,75 +146,66 @@ The most important findings from this project were:
 - Multiple models performed well, but Gradient Boosting achieved the best RMSLE.
 - Cross-validation supported the final model selection.
 
----
+## Visualizations
 
-## What I Learned
+The `images/` folder contains PNG files summarizing the confirmed analysis results:
 
-This project helped me understand that data science involves more than simply training a machine learning model.
+- `eda_summary.png`
+- `missing_values_summary.png`
+- `model_metrics_comparison.png`
+- `cross_validation_rmsle.png`
+- `feature_importance_summary.png`
+- `key_findings_summary.png`
 
-The process required:
+These images use only the results recorded from the prior analysis. They do not introduce new model scores.
 
-- Understanding the problem
-- Inspecting the dataset
-- Making decisions about missing values
-- Exploring relationships between variables
-- Selecting appropriate evaluation metrics
-- Comparing multiple models
-- Checking model stability
-- Interpreting the final results
-
-ChatGPT helped generate code, explain techniques, and interpret results, but I still needed to evaluate whether the analysis made sense and understand why each step was necessary.
-
-One important lesson was that the model with the best R² or RMSE is not automatically the best model for every problem. The evaluation metric must match the objective of the project.
-
----
-
-## Project Artifacts
-
-This directory contains the artifacts created during the project.
+## Project Files
 
 ```text
 assignment1/
-│
 ├── README.md
-├── chat_transcript.pdf
-├── house_prices_analysis.ipynb
-├── images/
+├── data/
+│   └── README.md
+├── notebooks/
+│   └── house_prices_analysis.ipynb
+├── src/
+│   └── house_prices_analysis.py
 ├── results/
-└── other project artifacts
+│   ├── model_metrics.csv
+│   ├── cross_validation_results.csv
+│   └── feature_importance_summary.csv
+├── images/
+│   ├── eda_summary.png
+│   ├── missing_values_summary.png
+│   ├── model_metrics_comparison.png
+│   ├── cross_validation_rmsle.png
+│   ├── feature_importance_summary.png
+│   └── key_findings_summary.png
+├── transcript/
+│   └── CHATGPT_TRANSCRIPT_PLACEHOLDER.md
+└── links/
+    └── medium_youtube_links.md
 ```
-
-Additional files may be added as the project is finalized.
-
----
 
 ## ChatGPT Transcript
 
-The complete ChatGPT interaction used to perform the data science analysis is included in this repository.
+The complete ChatGPT interaction used to perform the data science analysis should be exported and added to this repository.
 
-**Transcript:** `chat_transcript.pdf`
+**Transcript file placeholder:** `transcript/CHATGPT_TRANSCRIPT_PLACEHOLDER.md`
 
-The conversation was exported using SaveGPT.
+Recommended final file name after export:
 
----
-
-## Medium Article
-
-A summarized and polished version of the analysis was published as a Medium-style article.
-
-**Medium Article:**  
-[Add Medium article link here]
-
----
+```text
+assignment1/transcript/chat_transcript.pdf
+```
 
 ## YouTube Walkthrough
 
-A video walkthrough explains the end-to-end project, including the dataset, analysis process, models, results, and my own interpretation of the findings.
+Add the YouTube walkthrough link here after uploading:
 
-**YouTube Video:**  
+```text
 [Add YouTube video link here]
-
----
+```
 
 ## Tools Used
 
@@ -289,9 +219,8 @@ A video walkthrough explains the end-to-end project, including the dataset, anal
 - Kaggle
 - GitHub
 - Medium
-- SaveGPT
-
----
+- SaveGPT or another transcript export tool
+- YouTube
 
 ## Conclusion
 
@@ -301,4 +230,4 @@ The analysis showed that house quality, living space, location, age, and support
 
 Among the tested machine learning models, Gradient Boosting provided the strongest RMSLE performance and the most consistent cross-validation results.
 
-More importantly, the project demonstrated how an AI coding assistant can support the full data science process while still requiring human understanding, interpretation, and decision-making.
+More importantly, the project showed how an AI coding assistant can support the full data science process while still requiring human understanding, interpretation, and decision-making.
