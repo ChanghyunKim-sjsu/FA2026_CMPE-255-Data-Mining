@@ -1,0 +1,8 @@
+Feature,Approximate_Importance,Notes
+OverallQual,0.46,Overall construction and finish quality was the strongest predictor
+GrLivArea,0.17,Above-ground living area was the second strongest listed predictor
+House age,,Recorded as influential but no exact importance value was preserved
+Basement size,,Recorded as influential but no exact importance value was preserved
+Garage capacity,,Recorded as influential but no exact importance value was preserved
+Construction quality,,Recorded as influential but no exact importance value was preserved
+Neighborhood,,Recorded as influential but no exact importance value was preserved

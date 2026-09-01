@@ -1,0 +1,5 @@
+Model,RMSE,MAE,R2,RMSLE,Notes
+Median Baseline,88667,59568,-0.025,0.432,Simple median prediction baseline
+Log Linear Regression,22902,15076,0.932,0.132,Best RMSE MAE and R2 on validation set
+Random Forest,29007,17469,0.890,0.148,RMSLE recorded as approximately 0.148
+Gradient Boosting,28787,16763,0.892,0.130,Best validation RMSLE and selected final model
