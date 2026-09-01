@@ -163,9 +163,15 @@ These images use only the results recorded from the prior analysis. They do not 
 
 ```text
 assignment1/
-├── README.md
 ├── data/
-│   └── README.md
+│   └── train.csv
+├── images/
+│   ├── eda_summary.png
+│   ├── missing_values_summary.png
+│   ├── model_metrics_comparison.png
+│   ├── cross_validation_rmsle.png
+│   ├── feature_importance_summary.png
+│   └── key_findings_summary.png
 ├── notebooks/
 │   └── house_prices_analysis.ipynb
 ├── src/
@@ -174,15 +180,8 @@ assignment1/
 │   ├── model_metrics.csv
 │   ├── cross_validation_results.csv
 │   └── feature_importance_summary.csv
-├── images/
-│   ├── eda_summary.png
-│   ├── missing_values_summary.png
-│   ├── model_metrics_comparison.png
-│   ├── cross_validation_rmsle.png
-│   ├── feature_importance_summary.png
-│   └── key_findings_summary.png
-├── transcript/
-│   └── CHATGPT_TRANSCRIPT_PLACEHOLDER.md
+├── README.md
+├── Chat_transcript.pdf
 └── links/
     └── medium_youtube_links.md
 ```
