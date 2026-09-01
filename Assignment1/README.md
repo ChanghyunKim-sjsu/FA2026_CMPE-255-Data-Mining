@@ -172,6 +172,8 @@ assignment1/
 │   ├── cross_validation_rmsle.png
 │   ├── feature_importance_summary.png
 │   └── key_findings_summary.png
+└── links/
+    └── youtube_links.md
 ├── notebooks/
 │   └── house_prices_analysis.ipynb
 ├── src/
@@ -182,8 +184,6 @@ assignment1/
 │   └── feature_importance_summary.csv
 ├── Chat_transcript.pdf
 ├── README.md
-└── links/
-    └── youtube_links.md
 ```
 
 ## ChatGPT Transcript
