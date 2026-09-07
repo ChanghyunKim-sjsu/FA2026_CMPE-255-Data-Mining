@@ -279,31 +279,233 @@ executed results.
 
 # Part 2 — Data Science Experiment Replication
 
-Part 2 will replicate selected experiments from the professor's
-`data_science_examples` repository using an AI coding assistant.
+Part 2 replicates selected data science experiments using an AI coding
+assistant.
 
-The planned experiments are:
+The experiments are:
 
-### Customer Segmentation
+1. Customer Segmentation
+2. Market Basket Analysis
+3. Anomaly Detection
 
-Location:
+---
 
-`Part-2/customer-segmentation/`
+## 1. Customer Segmentation
 
-### Market Basket Analysis
+### Overview
 
-Location:
+This experiment uses K-Means clustering to identify meaningful customer
+segments from the Mall Customers dataset.
 
-`Part-2/market-basket-analysis/`
+The clustering features were:
 
-### Anomaly Detection
+- `Age`
+- `Annual Income (k$)`
+- `Spending Score (1-100)`
 
-Location:
+The dataset contains:
 
-`Part-2/anomaly-detection/`
+- **200 customers**
+- **5 columns**
+- **0 missing values**
+- **0 duplicate rows**
 
-Part 2 results and artifacts will be added after each experiment is executed
-and validated.
+`CustomerID` was excluded because it is only an identifier.
+
+The three numerical clustering features were standardized using
+`StandardScaler` before applying K-Means.
+
+### Selecting the Number of Clusters
+
+Multiple values of `k` from 2 to 10 were evaluated using:
+
+- Elbow Method
+- Silhouette Score
+
+The highest Silhouette Score was:
+
+- **k = 6**
+- **Silhouette Score = 0.428417**
+
+The Elbow Method also indicated that a solution around this range was
+reasonable.
+
+Therefore, the final K-Means model used **6 clusters**.
+
+### Customer Segments
+
+The final cluster profiles were:
+
+| Cluster | Avg Age | Avg Income | Avg Spending Score | Customers |
+|---|---:|---:|---:|---:|
+| 0 | 56.33 | 54.27 | 49.07 | 45 |
+| 1 | 26.79 | 57.10 | 48.13 | 39 |
+| 2 | 41.94 | 88.94 | 16.97 | 33 |
+| 3 | 32.69 | 86.54 | 82.13 | 39 |
+| 4 | 25.00 | 25.26 | 77.61 | 23 |
+| 5 | 45.52 | 26.29 | 19.38 | 21 |
+
+The clusters were interpreted as:
+
+1. **Older Moderate Customers**
+2. **Young Moderate Customers**
+3. **High-Income Low Spenders**
+4. **High-Income High Spenders**
+5. **Young Low-Income High Spenders**
+6. **Older Low-Income Low Spenders**
+
+One important finding was that Clusters 0 and 1 had similar income and
+spending behavior but differed substantially in age.
+
+This helped explain why the three-feature clustering produced six clusters
+even though the earlier two-dimensional income-versus-spending visualization
+appeared to show approximately five groups.
+
+### PCA Visualization
+
+PCA was used to reduce the three clustering features to two dimensions for
+visualization.
+
+The first two principal components explained approximately:
+
+- **PC1:** 44.3%
+- **PC2:** 33.3%
+- **Total:** 77.6%
+
+PCA was used only for visualization. The K-Means model itself was trained
+using all three standardized features.
+
+### Visualizations
+
+#### Elbow Method
+
+![Customer Segmentation Elbow Method](Part-2/customer-segmentation/figures/elbow_method.png)
+
+#### Silhouette Scores
+
+![Customer Segmentation Silhouette Scores](Part-2/customer-segmentation/figures/silhouette_scores.png)
+
+#### PCA Customer Segments
+
+![Customer Segments PCA](Part-2/customer-segmentation/figures/customer_segments_pca.png)
+
+### Artifacts
+
+- [Customer Segmentation Notebook](Part-2/customer-segmentation/notebook/customer_segmentation.ipynb)
+- [K Selection Results](Part-2/customer-segmentation/results/k_selection_results.csv)
+- [Cluster Profiles](Part-2/customer-segmentation/results/cluster_profiles.csv)
+- [Customer Segment Assignments](Part-2/customer-segmentation/results/customer_segments.csv)
+
+---
+
+## 2. Market Basket Analysis
+
+### Overview
+
+This experiment uses the Apriori algorithm and association rule mining to
+analyze grocery purchasing patterns.
+
+The dataset contains:
+
+- **3,898 unique members**
+- **167 unique grocery items**
+- **14,963 unique transactions**
+
+A transaction was defined as all products purchased by the same member on
+the same date.
+
+Exact duplicate item records were removed before basket encoding because the
+analysis focuses on whether an item appears in a transaction rather than the
+quantity purchased.
+
+### Frequent Itemset Mining
+
+The transaction data was converted into a Boolean basket matrix.
+
+The initial Apriori analysis used:
+
+- **Minimum support = 0.01**
+
+This produced:
+
+- **69 frequent itemsets**
+
+However, the association rules generated at this threshold had lift values
+below 1.
+
+The minimum support threshold was then reduced to:
+
+- **0.005**
+
+This allowed less frequent product relationships to be examined.
+
+### Association Rules
+
+The lower support threshold produced:
+
+- **5 rules with lift greater than 1**
+
+The strongest positive association was:
+
+`frankfurter → other vegetables`
+
+with:
+
+- **Support:** 0.005146
+- **Confidence:** 0.136283
+- **Lift:** 1.11615
+
+This means that approximately 0.51% of all transactions contained both
+frankfurter and other vegetables.
+
+Among transactions containing frankfurter, approximately 13.6% also contained
+other vegetables.
+
+The lift of approximately 1.116 indicates that the products appeared together
+about 11.6% more often than expected if their purchases were independent.
+
+This was interpreted as a **modest positive association**, not a strong
+purchasing relationship.
+
+Other positive associations included:
+
+- `sausage → yogurt`
+- `yogurt → sausage`
+- `sausage → soda`
+- `soda → sausage`
+
+### Key Finding
+
+One important finding from this experiment is that products with high purchase
+frequency are not necessarily strongly associated with one another.
+
+For example, whole milk was the most frequently occurring product, but frequent
+co-occurrence alone did not produce strong positive lift.
+
+Support, confidence, and lift therefore need to be considered together when
+interpreting market-basket relationships.
+
+### Visualization
+
+![Association Rules by Lift](Part-2/market-basket-analysis/figures/association_rules_lift.png)
+
+### Artifacts
+
+- [Market Basket Notebook](Part-2/market-basket-analysis/notebook/market_basket_analysis.ipynb)
+- [Frequent Itemsets](Part-2/market-basket-analysis/results/frequent_itemsets.csv)
+- [Association Rules](Part-2/market-basket-analysis/results/association_rules.csv)
+
+---
+
+## 3. Anomaly Detection
+
+**Status: In progress**
+
+The final Part 2 experiment will replicate an anomaly detection workflow using
+an AI coding assistant.
+
+Results and artifacts will be added after the experiment is executed and
+validated.
 
 ---
 
