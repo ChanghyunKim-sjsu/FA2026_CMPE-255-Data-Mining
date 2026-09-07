@@ -522,16 +522,23 @@ data science process and the results in my own words.
 
 ## Part 1
 
-**Analysis complete**
+**Complete**
 
-The House Prices notebook, figures, results, and supporting project artifacts
-are included in this repository.
+The House Prices notebook, figures, results, AI transcript, English transcript
+summary, and supporting project artifacts are included in this repository.
 
 ## Part 2
 
-**In progress**
+**2 of 3 experiments complete**
 
-The experiment replication artifacts will be added before final submission.
+Completed:
+
+- Customer Segmentation
+- Market Basket Analysis
+
+Remaining:
+
+- Anomaly Detection
 
 ---
 
