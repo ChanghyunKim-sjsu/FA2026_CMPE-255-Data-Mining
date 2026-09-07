@@ -502,13 +502,96 @@ interpreting market-basket relationships.
 
 ## 3. Anomaly Detection
 
-**Status: In progress**
+### Overview
 
-The final Part 2 experiment will replicate an anomaly detection workflow using
-an AI coding assistant.
+This experiment applies Isolation Forest to the Pooled Server Metrics (PSM)
+dataset to detect unusual server telemetry observations.
 
-Results and artifacts will be added after the experiment is executed and
-validated.
+The model used:
+
+- **25 numerical telemetry features**
+- Median imputation for missing training values
+- StandardScaler for feature standardization
+- Isolation Forest for unsupervised anomaly detection
+
+The timestamp column was excluded from model training.
+
+The test anomaly labels were not used to train the model. They were used only
+after prediction to evaluate the detected anomalies.
+
+### Evaluation Results
+
+The Isolation Forest achieved:
+
+- **Accuracy:** 0.74
+- **Anomaly Precision:** 0.56
+- **Anomaly Recall:** 0.20
+- **Anomaly F1-score:** 0.30
+
+The confusion matrix was:
+
+|              | Predicted Normal | Predicted Anomaly |
+| ------------ | ---------------: | ----------------: |
+| True Normal  |           59,624 |             3,836 |
+| True Anomaly |           19,435 |             4,946 |
+
+Although the overall accuracy was approximately 74%, accuracy alone is not a
+sufficient measure of anomaly detection performance.
+
+The model correctly identified 4,946 anomalies but missed 19,435 known
+anomalies, resulting in an anomaly recall of approximately 20%.
+
+This indicates that the default Isolation Forest configuration was relatively
+conservative. It identified some unusual observations with moderate precision
+but failed to detect many ground-truth anomalies.
+
+### PCA Visualization
+
+PCA was used to project the 25 telemetry features into two dimensions for
+visualization.
+
+The first two principal components explained:
+
+- **PC1:** 54.17%
+- **PC2:** 10.40%
+- **Total:** 64.57%
+
+PCA was used only for visualization. The Isolation Forest itself was trained
+using all 25 standardized features.
+
+#### Isolation Forest Predictions
+
+![Isolation Forest PCA](Part-2/anomaly-detection/figures/isolation_forest_pca.png)
+
+#### Ground-Truth Anomalies
+
+![Ground Truth PCA](Part-2/anomaly-detection/figures/ground_truth_pca.png)
+
+The PCA visualizations show that some extreme anomalies are clearly separated
+from the main data distribution.
+
+However, many ground-truth anomalies overlap with normal observations in the
+two-dimensional projection. This helps explain why the model detected some
+extreme observations while missing many known anomalies.
+
+### Artifacts
+
+- [Anomaly Detection Notebook](Part-2/anomaly-detection/notebook/anomaly_detection.ipynb)
+- [Anomaly Predictions](Part-2/anomaly-detection/results/anomaly_predictions.csv)
+- [Classification Report](Part-2/anomaly-detection/results/classification_report.csv)
+- [Confusion Matrix](Part-2/anomaly-detection/results/confusion_matrix.csv)
+
+### Conclusion
+
+This experiment demonstrated how an unsupervised anomaly detection algorithm
+can identify unusual patterns without using anomaly labels during training.
+
+It also showed why anomaly detection should not be evaluated using accuracy
+alone. Precision, recall, F1-score, and the confusion matrix provided a more
+complete understanding of model performance.
+
+Further improvements could include threshold tuning, additional feature
+engineering, and comparison with other anomaly detection algorithms.
 
 ---
 
@@ -532,15 +615,12 @@ summary, and supporting project artifacts are included in this repository.
 
 ## Part 2
 
-**2 of 3 experiments complete**
+**Complete — 3 of 3 experiments**
 
 Completed:
 
 - Customer Segmentation
 - Market Basket Analysis
-
-Remaining:
-
 - Anomaly Detection
 
 ---
