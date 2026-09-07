@@ -1,10 +1,18 @@
-# FA2026 CMPE-255 Data Mining
+# FA2026 CMPE 255 — Data Mining
 
-Coursework repository for Fall 2026.
+This repository contains coursework for CMPE 255 — Data Mining at
+San José State University.
 
 ## Assignment 1
 
-- [Organized Assignment 1 workspace](./Assignment-1/README.md) - the new submission-oriented structure
-- [`Assignment1/`](./Assignment1/) - untouched legacy backup retained for verification
+The completed Assignment 1 submission is located here:
 
-The organized workspace is intentionally marked **in progress** until the remaining YouTube and Part 2 recovery TODOs are completed.
+[Assignment 1 — AI-Assisted Data Science](Assignment%201/README.md)
+
+Assignment 1 includes:
+
+- Part 1 — House Price Prediction
+- Part 2 — Data Science Experiment Replication
+  - Customer Segmentation
+  - Market Basket Analysis
+  - Anomaly Detection
