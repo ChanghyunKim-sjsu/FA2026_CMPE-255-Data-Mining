@@ -1,0 +1,4 @@
+Model,Mean_RMSLE,Std_RMSLE,Notes
+Gradient Boosting,0.138,0.016,Best average cross-validation RMSLE
+Random Forest,0.148,0.019,Second-best average cross-validation RMSLE
+Log Linear Regression,0.159,0.028,Higher mean RMSLE and variability than Gradient Boosting
