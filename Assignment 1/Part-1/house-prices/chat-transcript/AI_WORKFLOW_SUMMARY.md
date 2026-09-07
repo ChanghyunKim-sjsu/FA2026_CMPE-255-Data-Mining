@@ -1,160 +1,545 @@
-# AI-Assisted Workflow Summary
+# English Summary of the AI-Assisted Session
 
-## CMPE 255 Assignment 1 - Part 1: House Prices
+## CMPE 255 — Assignment 1, Part 1
+### AI-Assisted House Price Prediction
 
-This document provides an English summary of the AI-assisted workflow used for
-Part 1 of CMPE 255 Assignment 1. It is a guide to the project process and final
-artifacts; it does not replace, translate, or reconstruct the original ChatGPT
-conversation. The original export is preserved separately as
-`original_chat_transcript.pdf`.
+**Original Session Date:** September 6, 2026
 
-## Project Objective
+The original AI-assisted session was conducted primarily in Korean.
+This document provides an English summary of the actual September 6 session.
 
-The project used the Kaggle **House Prices: Advanced Regression Techniques**
-dataset to build a supervised regression workflow for predicting residential
-`SalePrice`. The analysis followed the CRISP-DM framework and emphasized both
-predictive performance and an understandable account of how the result was
-produced.
+This is not a word-for-word translation.
+The original Korean transcript is preserved separately as the source record.
 
-## How AI Assisted the Work
+---
 
-ChatGPT supported the project by:
+## 1. Restarting the Assignment
 
-- helping define the prediction problem and CRISP-DM analysis plan;
-- suggesting exploratory analyses and visualizations;
-- generating and explaining Python code;
-- helping diagnose notebook and data-loading issues;
-- designing preprocessing pipelines for mixed data types;
-- comparing regression models and evaluation metrics;
-- interpreting prediction errors and feature importance;
-- helping organize the notebook, results, and repository documentation.
+The session began by deciding to rebuild Assignment 1 from the beginning.
 
-AI suggestions were reviewed against the dataset and executed notebook outputs
-before being included in the final project.
+Earlier work was kept only as backup material. The new project would use only
+results produced by the new final notebook run.
 
-## CRISP-DM Workflow
+The working principle was:
 
-### 1. Business Understanding
+Professor Requirements
+→ intent.md
+→ spec.md
+→ plan.md
+→ Notebook / Code
+→ Validation
+→ Results
+→ README
+→ YouTube
 
-The project defined the task as predicting the sale price of a house from its
-physical characteristics, quality, location, and related attributes. The target
-was `SalePrice`, making this a supervised regression problem. Model performance
-was evaluated with RMSE, MAE, and R-squared, with RMSE used for the final model
-comparison and cross-validation.
+The goal was not only to generate a machine-learning result, but also to create
+a reproducible AI-assisted data science workflow that I could explain in my own
+words.
 
-### 2. Data Understanding
+---
 
-The training data contained:
+## 2. Project Organization
 
-- 1,460 observations;
-- 81 columns;
-- numerical and categorical variables;
-- 0 duplicate rows;
-- no missing target values.
+The final working directory was organized under:
 
-The target distribution was strongly right-skewed, with skewness of
-approximately 1.88. Exploratory analysis examined its distribution, missing
-values, numerical correlations, categorical relationships, and unusual houses.
-The strongest numerical relationships with sale price included `OverallQual`,
-`GrLivArea`, `GarageCars`, `GarageArea`, and `TotalBsmtSF`.
+`Assignment 1/`
 
-### 3. Domain-Aware Data Preparation
+Part 1 used:
 
-A key finding was that Pandas' default CSV parsing can interpret literal values
-such as `NA` and `None` as generic missing values. In the Kaggle data dictionary,
-many of these values describe the absence of a property feature rather than an
-unknown observation. The data was therefore reloaded with
-`keep_default_na=False` and cleaned using domain-specific labels such as:
+`Part-1/house-prices/`
 
-- `NoPool`;
-- `NoGarage`;
-- `NoBasement`;
-- `NoMasonryVeneer`;
-- `NoFireplace`.
+with the following structure:
 
-Remaining true missing values were retained for pipeline-based imputation. The
-final modeling workflow used an 80/20 training-validation split with
-`random_state=42`. Numerical variables were median-imputed and standardized.
-Categorical variables were imputed with the most frequent value and one-hot
-encoded, with previously unseen categories ignored.
+- `intent.md`
+- `spec.md`
+- `plan.md`
+- `data/`
+- `notebooks/`
+- `figures/`
+- `results/`
+- `chat-transcript/`
+- `report/`
 
-### 4. Modeling
+Older folders were preserved as backups while `Assignment 1` became the final
+working directory.
 
-Four regression approaches were evaluated with consistent preprocessing:
+---
 
-1. Dummy Regressor as a simple mean-price baseline
+## 3. Intent, Specification, and Plan
+
+Three planning documents were created before modeling.
+
+### intent.md
+
+Defined why the project was being performed:
+
+- predict residential house prices
+- use the Kaggle House Prices dataset
+- use AI throughout the workflow
+- validate AI-generated output rather than accepting it blindly
+- explain final results in my own words
+
+### spec.md
+
+Defined what the analysis should contain:
+
+- supervised regression
+- target variable: `SalePrice`
+- dataset validation
+- exploratory data analysis
+- numerical and categorical preprocessing
+- baseline model
+- multiple regression models
+- RMSE, MAE, and R²
+- cross-validation
+- prediction-error analysis
+- feature interpretation
+- reproducibility checks
+
+### plan.md
+
+Converted the specification into an implementation checklist covering:
+
+- project setup
+- data understanding
+- EDA
+- data preparation
+- baseline modeling
+- model comparison
+- interpretation
+- final validation
+- documentation
+- assignment deliverables
+
+---
+
+## 4. Python and Jupyter Environment
+
+The analysis was performed locally using:
+
+- VS Code
+- Jupyter Notebook
+- Python virtual environment
+- Pandas
+- NumPy
+- Matplotlib
+- Scikit-learn
+
+During setup, the notebook initially used the wrong Python environment.
+
+The selected interpreter pointed to a previous CMPE 272 project:
+
+`CMPE-272-Enterprise-Software-Platforms/Assignment 2/.venv/bin/python`
+
+A dedicated CMPE 255 kernel was then installed and registered as:
+
+`CMPE 255 House Prices`
+
+The final notebook interpreter was verified as:
+
+`.../CMPE-255/FA2026_CMPE-255-Data-Mining/Assignment 1/Part-1/house-prices/.venv/bin/python`
+
+This ensured that the CMPE 255 notebook used its own isolated Python environment.
+
+---
+
+## 5. Dataset Understanding
+
+The project used the Kaggle:
+
+**House Prices: Advanced Regression Techniques**
+
+training dataset.
+
+Initial inspection produced:
+
+- Rows: 1,460
+- Columns: 81
+- String columns: 43
+- Integer columns: 35
+- Float columns: 3
+- Duplicate rows: 0
+
+The prediction target was:
+
+`SalePrice`
+
+The dataset therefore contains a combination of numerical and categorical
+property features.
+
+---
+
+## 6. SalePrice Distribution
+
+The `SalePrice` distribution was inspected before modeling.
+
+Calculated skewness:
+
+`1.8828757597682129`
+
+This showed that house prices were strongly right-skewed.
+
+Most observations were concentrated in the lower and middle price ranges,
+while a smaller number of expensive houses formed a long right tail.
+
+This observation later helped explain why several of the largest model errors
+occurred for expensive properties.
+
+---
+
+## 7. Missing-Value Investigation
+
+Missing values were not immediately treated as generic missing data.
+
+Several variables were investigated together with related property features.
+
+Examples included:
+
+- Missing `PoolQC` values corresponded to houses with `PoolArea = 0`
+- Missing `GarageType` values corresponded to houses with `GarageCars = 0`
+- Missing `BsmtQual` values corresponded to houses with `TotalBsmtSF = 0`
+
+This showed that many missing values represented structural absence:
+
+- no pool
+- no garage
+- no basement
+
+rather than accidental data loss.
+
+---
+
+## 8. Pandas Missing-Value Parsing
+
+The raw CSV was also loaded using:
+
+```python
+pd.read_csv("../data/train.csv", keep_default_na=False)
+
+```markdown
+This revealed an important parsing issue.
+
+For example, the raw `MasVnrType` values included:
+
+- `None`: 864
+- `BrkFace`: 445
+- `Stone`: 128
+- `BrkCmn`: 15
+- `NA`: 8
+
+With Pandas' default parsing behavior, values such as `"None"` and `"NA"` could
+be interpreted as missing values.
+
+This investigation showed why the meaning of missing data needed to be checked
+before applying preprocessing.
+
+The cleaning strategy therefore attempted to preserve domain meaning instead
+of blindly applying one generic imputation rule.
+
+---
+
+## 9. Exploratory Data Analysis
+
+The numerical features most strongly correlated with `SalePrice` included:
+
+| Feature | Correlation |
+|---|---:|
+| OverallQual | 0.790982 |
+| GrLivArea | 0.708624 |
+| GarageCars | 0.640409 |
+| GarageArea | 0.623431 |
+| TotalBsmtSF | 0.613581 |
+| 1stFlrSF | 0.605852 |
+| FullBath | 0.560664 |
+| TotRmsAbvGrd | 0.533723 |
+| YearBuilt | 0.522897 |
+| YearRemodAdd | 0.507101 |
+
+`OverallQual` and `GrLivArea` showed the strongest numerical relationships
+with house prices.
+
+These results suggest that overall property quality and usable living space
+are particularly important predictors of sale price.
+
+---
+
+## 10. Data Preparation
+
+The preprocessing workflow separated numerical and categorical variables.
+
+Numerical preprocessing included:
+
+- missing-value imputation
+- scaling where appropriate
+
+Categorical preprocessing included:
+
+- domain-aware missing-value handling
+- missing-value imputation where necessary
+- one-hot encoding
+
+Scikit-learn `Pipeline` and `ColumnTransformer` were used to create a reusable
+and reproducible preprocessing workflow.
+
+The dataset was divided into training and validation sets using a fixed random
+state for reproducibility.
+
+---
+
+## 11. Models Evaluated
+
+Four regression approaches were compared:
+
+1. Dummy Regressor
 2. Ridge Regression
 3. Random Forest Regressor
 4. Gradient Boosting Regressor
 
-The baseline established whether the machine-learning models added meaningful
-predictive value. Ridge tested a regularized linear relationship, while Random
-Forest and Gradient Boosting represented nonlinear tree-based approaches.
+The Dummy Regressor provided a simple baseline so that the machine-learning
+models could be compared against a naive prediction strategy.
 
-### 5. Evaluation
+---
 
-The final validation results recorded in `results/model_comparison.csv` were:
+## 12. Model Comparison
 
-| Model | RMSE | MAE | R-squared |
+The final validation results showed that Gradient Boosting achieved the best
+performance among the tested models.
+
+Approximate results were:
+
+| Model | RMSE | MAE | R² |
 |---|---:|---:|---:|
 | Gradient Boosting | $27,790 | $17,165 | 0.899 |
-| Random Forest | $29,024 | $17,495 | 0.890 |
-| Ridge Regression | $29,721 | $19,101 | 0.885 |
-| Dummy Baseline | $87,619 | $62,576 | -0.001 |
+| Random Forest | $29,024 | — | — |
+| Ridge Regression | $29,721 | — | — |
+| Dummy Baseline | $87,619 | — | — |
 
-Gradient Boosting achieved the best validation performance. Five-fold
-cross-validation produced a mean RMSE of approximately $26,871 with a standard
-deviation of approximately $3,651, supporting the conclusion that its result
-was not dependent on only one train-validation split.
+Gradient Boosting substantially outperformed the Dummy baseline.
 
-### 6. Interpretation and Communication
+The final Gradient Boosting validation performance was approximately:
 
-Feature-importance analysis identified the most influential predictors used by
-the Gradient Boosting model:
+- RMSE: $27,790
+- MAE: $17,165
+- R²: 0.899
 
-- `OverallQual`, approximately 50.2% of total importance;
-- `GrLivArea`, approximately 15.4%;
-- `GarageCars`;
-- `TotalBsmtSF`;
-- `BsmtFinSF1`;
-- `1stFlrSF`.
+This suggests that the model captured a large portion of the variation in
+house prices and produced substantially better predictions than the simple
+baseline. fileciteturn19file1
 
-These findings were consistent with the earlier correlation analysis. Feature
-importance was interpreted as predictive usefulness, not evidence of causation.
+---
 
-Prediction-error analysis showed that some expensive or unusual homes were
-substantially underpredicted. The largest recorded absolute error involved a
-home that sold for $611,657 but was predicted at approximately $403,266. This
-suggests that rare high-value properties are more difficult for the model to
-represent accurately.
+## 13. Cross-Validation
 
-For this academic project, the CRISP-DM deployment phase was treated as clear
-communication through the executed notebook, saved figures, CSV result tables,
-repository documentation, and planned video walkthrough rather than deployment
-of a production service.
+To verify that the Gradient Boosting result was not caused by one favorable
+train-validation split, the model was evaluated using 5-fold cross-validation.
 
-## Human Validation
+The RMSE values were:
 
-The final notebook was restarted, run from beginning to end, and saved. Its 51
-code cells all contain execution counts. The generated results were reviewed
-against the CSV files and README, and the final interpretation was written from
-the observed outputs rather than accepted from AI suggestions without checking.
+- $23,534.66
+- $32,806.17
+- $27,905.74
+- $22,541.65
+- $27,567.98
 
-The project also records an important human correction: investigation of the
-data dictionary and raw CSV values changed how `NA` and `None` were interpreted.
-This prevented meaningful absence categories from being treated automatically
-as ordinary missing data.
+The mean cross-validation RMSE was:
 
-## Transcript Provenance
+**$26,871.24**
 
-`original_chat_transcript.pdf` is a byte-for-byte copy of the original
-61-page ChatGPT Exporter PDF that was already present in this repository as
-`Assignment1/Chat_transcript.pdf`. The export includes the original conversation
-URL and spans the initial House Prices discussion through its CRISP-DM
-conclusions. No messages were translated, rewritten, or synthesized for that
-PDF.
+The standard deviation was:
 
-The preserved transcript documents an earlier iteration of the analysis, so
-some model choices and recorded metrics differ from the final executed notebook.
-The notebook and CSV files under this `Assignment 1/Part-1/house-prices/`
-directory are the authoritative sources for the final submitted results.
+**$3,651.22**
+
+The mean cross-validation RMSE was close to the original validation RMSE of
+approximately $27,790.
+
+This provides additional evidence that the model performs reasonably
+consistently across different subsets of the dataset. fileciteturn18file0
+
+---
+
+## 14. Prediction Error Analysis
+
+The Gradient Boosting model performed well overall, but some individual
+properties produced large prediction errors.
+
+One example was:
+
+- Actual price: approximately $611,657
+- Predicted price: approximately $403,266
+- Underprediction: more than $200,000
+
+Other large errors also appeared among relatively expensive homes.
+
+There were also some large overpredictions for mid-priced homes.
+
+These results suggest that unusual or expensive properties may contain
+characteristics that are more difficult for the model to capture.
+
+This is also consistent with the right-skewed `SalePrice` distribution
+observed earlier.
+
+Therefore, strong overall RMSE and R² results do not guarantee that every
+individual house prediction will be accurate. fileciteturn20file1
+
+---
+
+## 15. Feature Importance
+
+The Gradient Boosting model identified several important predictive features.
+
+The strongest features included:
+
+- `OverallQual` — approximately 50.2%
+- `GrLivArea` — approximately 15.4%
+- `GarageCars` — approximately 4.2%
+- `TotalBsmtSF` — approximately 3.5%
+- `BsmtFinSF1` — approximately 3.3%
+
+`OverallQual` was the most important feature by a large margin.
+
+`GrLivArea` was the second most important feature.
+
+This result was consistent with the earlier correlation analysis, where
+`OverallQual` and `GrLivArea` also showed the strongest relationships with
+`SalePrice`.
+
+Feature importance reflects how the model uses variables for prediction and
+should not be interpreted as proving a causal relationship. fileciteturn20file3
+
+---
+
+## 16. Generated Results
+
+The project generated the following result files:
+
+- `model_comparison.csv`
+- `cross_validation_rmse.csv`
+- `prediction_errors.csv`
+- `feature_importance.csv`
+
+The project also generated the following figures:
+
+- `saleprice_distribution.png`
+- `missing_values.png`
+- `top_correlations.png`
+- `actual_vs_predicted.png`
+- `feature_importance.png`
+
+These artifacts were stored in the `results/` and `figures/` directories and
+were generated from the final notebook workflow. fileciteturn18file4
+
+---
+
+## 17. Notebook Reproducibility
+
+After experimentation, the notebook was cleaned and prepared for final
+validation.
+
+Temporary tests, failed cells, and unnecessary notebook content were reviewed.
+
+The final workflow used:
+
+`Restart Kernel → Run All → Save`
+
+The notebook file was also inspected programmatically to verify that code
+cells had been executed.
+
+The purpose of this step was to make sure that the reported results could be
+reproduced from the notebook rather than depending on a specific interactive
+execution order. fileciteturn20file4
+
+---
+
+## 18. GitHub Validation
+
+The rebuilt Assignment 1 project was committed and pushed to GitHub.
+
+The final working directory included:
+
+- planning documents
+- dataset
+- executed Jupyter notebook
+- figures
+- CSV result files
+- chat transcript directory
+- README documentation
+
+The local Python `.venv` was intentionally excluded from Git.
+
+Older Assignment 1 directories were preserved only as backups.
+
+---
+
+## 19. Role of AI and Human Validation
+
+The AI assistant supported:
+
+- project planning
+- project organization
+- Python environment troubleshooting
+- code generation
+- debugging
+- exploratory data analysis
+- preprocessing design
+- model comparison
+- cross-validation
+- prediction-error analysis
+- feature interpretation
+- documentation
+
+However, AI output was not accepted blindly.
+
+The code was executed locally, unexpected behavior was investigated, and the
+final interpretations were based on the actual notebook outputs.
+
+The missing-value investigation was an important example.
+
+Instead of immediately applying generic imputation, the meaning of `"NA"`,
+`"None"`, and structural missing values was investigated before the cleaning
+strategy was finalized.
+
+This demonstrated that AI-assisted data science still requires human
+validation, domain interpretation, and reproducibility checks.
+
+---
+
+## Final Summary
+
+The September 6 session rebuilt Part 1 as a complete AI-assisted data science
+workflow:
+
+Requirements  
+→ Intent  
+→ Specification  
+→ Plan  
+→ Environment Setup  
+→ Data Understanding  
+→ Missing-Value Investigation  
+→ Exploratory Data Analysis  
+→ Data Preparation  
+→ Baseline Modeling  
+→ Model Comparison  
+→ Cross-Validation  
+→ Prediction Error Analysis  
+→ Feature Importance  
+→ Artifact Generation  
+→ Reproducibility Validation  
+→ GitHub Documentation
+
+The strongest model was Gradient Boosting with approximately:
+
+- RMSE: $27,790
+- MAE: $17,165
+- R²: 0.899
+
+The 5-fold cross-validation mean RMSE was approximately:
+
+- $26,871
+
+The strongest predictive features were:
+
+- `OverallQual`
+- `GrLivArea`
+
+The project demonstrated both the usefulness of AI-assisted development and
+the importance of human verification throughout the data science workflow.
