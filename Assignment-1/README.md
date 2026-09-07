@@ -20,7 +20,7 @@ The original [`Assignment1/`](../Assignment1/) directory has not been edited or 
 | Export the AI chat transcript | 1 | Complete | [House Prices chat transcript](./Part-1/house-prices/chat-transcript/house-prices-chat-transcript.pdf). |
 | Replicate professor experiments using the supplied prompts | 2 | Partial | Three experiment scopes and source prompts are documented; the prior implementation artifacts are missing from the audited repository. |
 | Explain and paraphrase the results in the student's own words | 1 and 2 | Partial | Part 1 interpretation is below. Part 2 interpretations must be verified after artifacts are restored and rerun. |
-| Publish the repository with public-view permission | 1 and 2 | Verified for current repository | Anonymous HTTPS cloning of the public repository succeeded on September 6, 2026. Recheck after the final commit is pushed. |
+| Publish the repository with public-view permission | 1 and 2 | Verified for current repository | Anonymous HTTPS cloning succeeded before the reorganization, and an unauthenticated remote lookup confirmed the new `main` commit after the push on September 6, 2026. Recheck after future final-artifact pushes. |
 | Upload YouTube walkthrough(s) and link them from the README | 1 and 2 | TODO | Replace the placeholders below with public or unlisted YouTube URLs. |
 | Publish on Medium | - | Not required | Omitted because the professor said Medium publishing is not required. |
 

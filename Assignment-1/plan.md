@@ -35,5 +35,6 @@
 - [ ] Record the Part 1 YouTube walkthrough.
 - [ ] Record the Assignment 1 - Part 2 YouTube walkthrough.
 - [ ] Add both working links to the root README.
-- [ ] Push the verified structure to GitHub.
-- [ ] Test repository and video access while signed out.
+- [x] Push the audited structure to GitHub.
+- [x] Verify the pushed `main` branch through an unauthenticated HTTPS lookup.
+- [ ] Test both final video links while signed out.
