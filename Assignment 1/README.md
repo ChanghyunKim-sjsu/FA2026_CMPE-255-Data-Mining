@@ -275,6 +275,9 @@ after examining the actual domain meaning of those values.
 The final explanations in this project are based on my interpretation of the
 executed results.
 
+- [Original ChatGPT Transcript](Part-1/house-prices/chat-transcript/ChatGPT-HW%20%231-Transcript.pdf)
+- [English Transcript Summary](Part-1/house-prices/chat-transcript/ENGLISH_TRANSCRIPT_SUMMARY.md)
+
 ---
 
 # Part 2 — Data Science Experiment Replication
@@ -337,13 +340,13 @@ Therefore, the final K-Means model used **6 clusters**.
 The final cluster profiles were:
 
 | Cluster | Avg Age | Avg Income | Avg Spending Score | Customers |
-|---|---:|---:|---:|---:|
-| 0 | 56.33 | 54.27 | 49.07 | 45 |
-| 1 | 26.79 | 57.10 | 48.13 | 39 |
-| 2 | 41.94 | 88.94 | 16.97 | 33 |
-| 3 | 32.69 | 86.54 | 82.13 | 39 |
-| 4 | 25.00 | 25.26 | 77.61 | 23 |
-| 5 | 45.52 | 26.29 | 19.38 | 21 |
+| ------- | ------: | ---------: | -----------------: | --------: |
+| 0       |   56.33 |      54.27 |              49.07 |        45 |
+| 1       |   26.79 |      57.10 |              48.13 |        39 |
+| 2       |   41.94 |      88.94 |              16.97 |        33 |
+| 3       |   32.69 |      86.54 |              82.13 |        39 |
+| 4       |   25.00 |      25.26 |              77.61 |        23 |
+| 5       |   45.52 |      26.29 |              19.38 |        21 |
 
 The clusters were interpreted as:
 
