@@ -498,6 +498,16 @@ interpreting market-basket relationships.
 - [Frequent Itemsets](Part-2/market-basket-analysis/results/frequent_itemsets.csv)
 - [Association Rules](Part-2/market-basket-analysis/results/association_rules.csv)
 
+## Dependencies
+
+The notebooks use Python packages including:
+
+- pandas
+- numpy
+- matplotlib
+- scikit-learn
+- mlxtend
+- 
 ---
 
 ## 3. Anomaly Detection
