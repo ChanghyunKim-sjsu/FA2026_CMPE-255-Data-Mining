@@ -507,7 +507,8 @@ The notebooks use Python packages including:
 - matplotlib
 - scikit-learn
 - mlxtend
-- 
+-
+
 ---
 
 ## 3. Anomaly Detection
@@ -610,7 +611,7 @@ engineering, and comparison with other anomaly detection algorithms.
 The final Assignment 1 walkthrough will explain the end-to-end AI-assisted
 data science process and the results in my own words.
 
-**YouTube Link:** To be added after recording.
+**YouTube Walkthrough:** [Watch the Assignment 1 walkthrough](https://youtu.be/0ziedH0Wi-c)
 
 ---
 
