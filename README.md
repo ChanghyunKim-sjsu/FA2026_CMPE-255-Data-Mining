@@ -16,3 +16,7 @@ Assignment 1 includes:
   - Customer Segmentation
   - Market Basket Analysis
   - Anomaly Detection
+
+## Assignment 3
+
+Six executed notebooks covering K-Means, AutoGluon, RAPIDS, and PyCaret are listed in the [Assignment 3 README](Assignment-3/README.md). Walkthrough video links will be added after upload.
